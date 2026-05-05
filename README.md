@@ -1,91 +1,84 @@
-DevOps Practice Project – Dist Directory
+This project demonstrates a complete DevOps pipeline to deploy a production-ready web application using modern tools and cloud services.
 
-This repository contains the production-ready build files (dist folder) for DevOps practice and deployment exercises.
+The application is a pre-built React application (dist/ folder) deployed using:
 
-It is intentionally structured to help learners focus on CI/CD pipelines, hosting, containerization, and infrastructure setup rather than application development.
+Docker (Containerization)
+Jenkins (CI/CD Automation)
+DockerHub (Image Registry)
+AWS EKS (Kubernetes Cluster)
+Kubernetes (Deployment & Service)
+GitHub (Version Control)
+Architecture
+GitHub → Jenkins → Docker → DockerHub → AWS EKS → LoadBalancer → Browser
 
-📁 What This Repository Contains
+Step-by-Step Setup
+🔹 1. Clone Repository
+git clone https://github.com/PrakashD189/TRENDIFY.git
+cd TRENDIFY
+🔹 2. Docker Setup
+Build Image
+docker build -t trendify-app .
+Run Container
+docker run -d -p 80:80 trendify-app
+🔹 3. Push Image to DockerHub
+docker tag trendify-app <dockerhub-username>/trendify-app
+docker push <dockerhub-username>/trendify-app
+🔹 4. Jenkins Setup
+Install Jenkins
+Install plugins:
+Docker
+Git
+Pipeline
+Kubernetes
+Configure Pipeline:
+Select Pipeline script from SCM
+Add GitHub repository
+Use Jenkinsfile
+🔹 5. Kubernetes (EKS Setup)
+Create Cluster
+eksctl create cluster --name trendify-cluster --region ap-south-1
+Verify
+kubectl get nodes
+🔹 6. Deployment
+kubectl apply -f k8s/deployment.yaml
+kubectl apply -f k8s/service.yaml
+🔹 7. Access Application
+kubectl get svc
 
-dist/ – Compiled and production-ready static files
+Open the EXTERNAL-IP in browser.
 
-HTML
+🔄 CI/CD Pipeline Flow
 
-CSS
+Jenkins Pipeline Stages:
 
-JavaScript
+Clone Code (auto via SCM)
+Build Docker Image
+Tag Image
+Push to DockerHub
+Deploy to Kubernetes
+Kubernetes Configuration
+Deployment
+2 replicas
+Uses Docker image from DockerHub
+Rolling update strategy
+Service
+Type: LoadBalancer
+Exposes app publicly via AWS ELB
+📊 Monitoring (Optional)
 
-Assets (images, fonts, etc.)
+Can be integrated using:
 
-These files are ready to deploy to:
+Prometheus
+Grafana
+🔐 Security Notes
+Avoid hardcoding AWS credentials
+Use IAM Roles for production
+Store secrets in Jenkins Credentials
+🎯
 
-Web servers (Nginx / Apache)
+URL:http://ae49e8735c2b24a8cae1fbe12740502a-534043028.ap-south-1.elb.amazonaws.com/
 
-Cloud platforms (AWS S3, Azure Blob, GCP Storage)
 
-Containerized environments (Docker + Nginx)
-
-Kubernetes clusters
-
-CI/CD pipeline demonstrations
-
-🎯 Purpose of This Repository
-
-This repository is designed for:
-
-DevOps beginners
-
-CI/CD practice
-
-Deployment pipeline testing
-
-Docker & Kubernetes deployment exercises
-
-Web server configuration practice
-
-Reverse proxy and load balancer setup
-
-The goal is to simulate real-world deployment scenarios using already built application files.
-
-❓ Why is there NO package.json?
-
-You may notice that this repository does not include:
-
-package.json
-
-node_modules
-
-Source code (src/)
-
-Build tools configuration
-
-✅ Reason:
-
-This repository only contains the final production build output (dist), not the development source code.
-
-In a typical project:
-
-Developers write source code.
-
-The project is built using tools like:
-
-Node.js
-
-Webpack
-
-Vite
-
-React (or other frameworks)
-
-A dist/ folder is generated.
-
-Only the production build is deployed to servers.
-
-This repository represents step 4 only.
-
-Since this is already the compiled output:
-
-No dependencies are required
-
-No build process is required
-
-No package.json is needed
+Tag Image
+Push to DockerHub
+Deploy to Kubernetes
