@@ -1,0 +1,58 @@
+# Node modules
+node_modules/
+
+# Build output
+dist/
+build/
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+
+# Docker
+.dockerignore
+
+# Kubernetes
+*.yaml.swp
+
+# Coverage
+coverage/
+
+# Temporary files
+tmp/
+temp/
+
+# CSV / generated reports (optional - remove if needed)
+*.csv
+*.txt
+*.docx
+
+
+# Misc
+*.tgz
+*.bak
+
+# Ignore system files
+*.pid
+*.seed
+
+# Ignore lock files (optional - keep if needed for consistency)
+# package-lock.json
+# yarn.lock
