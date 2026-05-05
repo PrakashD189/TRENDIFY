@@ -3,12 +3,6 @@ pipeline {
 
     stages {
 
-        stage('Clone Code') {
-            steps {
-                echo 'Code already fetched by Jenkins'
-            }
-        }
-
         stage('Build Docker Image') {
             steps {
                 sh 'docker build -t trendify-app .'
@@ -17,19 +11,21 @@ pipeline {
 
         stage('Tag Image') {
             steps {
-                sh 'docker tag trendify-app dprakash4a3/trendify-app'
+                sh 'docker tag trendify-app dprakash4a3/trendify-app:${BUILD_NUMBER}'
             }
         }
 
         stage('Push to DockerHub') {
             steps {
-                sh 'docker push dprakash4a3/trendify-app'
+                sh 'docker push dprakash4a3/trendify-app:${BUILD_NUMBER}'
             }
         }
 
-        stage('Deploy (Later)') {
+        stage('Deploy to Kubernetes') {
             steps {
-                echo 'Deployment to Kubernetes will be added later'
+                sh '''
+                kubectl set image deployment/trendify-deployment trendify-container=dprakash4a3/trendify-app:${BUILD_NUMBER}
+                '''
             }
         }
     }
