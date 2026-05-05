@@ -47,7 +47,7 @@ kubectl get svc
 
 Open the EXTERNAL-IP in browser.
 
-🔄 CI/CD Pipeline Flow
+ **CI/CD Pipeline Flow**
 
 Jenkins Pipeline Stages:
 
@@ -64,17 +64,16 @@ Rolling update strategy
 Service
 Type: LoadBalancer
 Exposes app publicly via AWS ELB
-📊 Monitoring (Optional)
+**Monitoring**
 
 Can be integrated using:
 
 Prometheus
 Grafana
-🔐 Security Notes
+**Security Notes**
 Avoid hardcoding AWS credentials
 Use IAM Roles for production
 Store secrets in Jenkins Credentials
-🎯
 
 URL:http://ae49e8735c2b24a8cae1fbe12740502a-534043028.ap-south-1.elb.amazonaws.com/
 
