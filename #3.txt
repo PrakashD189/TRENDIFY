@@ -1,0 +1,296 @@
+Started by user dprakash
+Obtained Jenkinsfile from git https://github.com/PrakashD189/TRENDIFY.git
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/lib/jenkins/workspace/Trendify Deploy
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+The recommended git tool is: git
+No credentials specified
+ > git rev-parse --resolve-git-dir /var/lib/jenkins/workspace/Trendify Deploy/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/PrakashD189/TRENDIFY.git # timeout=10
+Fetching upstream changes from https://github.com/PrakashD189/TRENDIFY.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.53.0'
+ > git fetch --tags --force --progress -- https://github.com/PrakashD189/TRENDIFY.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+Checking out Revision 584f9715a0d8f11812febc918d42665cc367f2e9 (refs/remotes/origin/main)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 584f9715a0d8f11812febc918d42665cc367f2e9 # timeout=10
+Commit message: "Added Jenkins pipeline"
+ > git rev-list --no-walk 584f9715a0d8f11812febc918d42665cc367f2e9 # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Clone Code)
+[Pipeline] echo
+Code already fetched by Jenkins
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build Docker Image)
+[Pipeline] sh
++ docker build -t trendify-app .
+DEPRECATED: The legacy builder is deprecated and will be removed in a future release.
+            Install the buildx component to build images with BuildKit:
+            https://docs.docker.com/go/buildx/
+
+Sending build context to Docker daemon  18.49MB
+Step 1/4 : FROM nginx:alpine
+alpine: Pulling from library/nginx
+612c0c1df4c5: Pulling fs layer
+6a0ac1617861: Pulling fs layer
+82736a35d0e7: Pulling fs layer
+583599bb7d38: Pulling fs layer
+aee4e54b3865: Pulling fs layer
+781ff50d2644: Pulling fs layer
+4a8b0b2a5b19: Pulling fs layer
+453da7dbc73e: Pulling fs layer
+e8fc446e336c: Download complete
+6192e1e6a438: Download complete
+453da7dbc73e: Download complete
+781ff50d2644: Download complete
+82736a35d0e7: Download complete
+6a0ac1617861: Download complete
+aee4e54b3865: Download complete
+4a8b0b2a5b19: Download complete
+583599bb7d38: Download complete
+6a0ac1617861: Pull complete
+612c0c1df4c5: Download complete
+82736a35d0e7: Pull complete
+453da7dbc73e: Pull complete
+781ff50d2644: Pull complete
+aee4e54b3865: Pull complete
+583599bb7d38: Pull complete
+4a8b0b2a5b19: Pull complete
+612c0c1df4c5: Pull complete
+Digest: sha256:5616878291a2eed594aee8db4dade5878cf7edcb475e59193904b198d9b830de
+Status: Downloaded newer image for nginx:alpine
+ ---> 5616878291a2
+Step 2/4 : COPY dist/ /usr/share/nginx/html
+ ---> b61f9d6f53a1
+Step 3/4 : EXPOSE 80
+ ---> Running in 799e0ee15520
+ ---> Removed intermediate container 799e0ee15520
+ ---> 276f735ba71a
+Step 4/4 : CMD ["nginx", "-g", "daemon off;"]
+ ---> Running in e6576ed12054
+ ---> Removed intermediate container e6576ed12054
+ ---> 184bf79d56be
+Successfully built 184bf79d56be
+Successfully tagged trendify-app:latest
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Tag Image)
+[Pipeline] sh
++ docker tag trendify-app dprakash4a3/trendify-app
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Push to DockerHub)
+[Pipeline] sh
++ docker push dprakash4a3/trendify-app
+Using default tag: latest
+The push refers to repository [docker.io/dprakash4a3/trendify-app]
+453da7dbc73e: Waiting
+d2cf5831500c: Waiting
+aee4e54b3865: Waiting
+781ff50d2644: Waiting
+612c0c1df4c5: Waiting
+6a0ac1617861: Waiting
+82736a35d0e7: Waiting
+583599bb7d38: Waiting
+4a8b0b2a5b19: Waiting
+aee4e54b3865: Waiting
+781ff50d2644: Waiting
+612c0c1df4c5: Waiting
+6a0ac1617861: Waiting
+82736a35d0e7: Waiting
+583599bb7d38: Waiting
+4a8b0b2a5b19: Waiting
+453da7dbc73e: Waiting
+d2cf5831500c: Waiting
+aee4e54b3865: Waiting
+781ff50d2644: Waiting
+612c0c1df4c5: Waiting
+6a0ac1617861: Waiting
+82736a35d0e7: Waiting
+583599bb7d38: Waiting
+4a8b0b2a5b19: Waiting
+453da7dbc73e: Waiting
+d2cf5831500c: Waiting
+d2cf5831500c: Waiting
+aee4e54b3865: Waiting
+781ff50d2644: Waiting
+612c0c1df4c5: Waiting
+6a0ac1617861: Waiting
+82736a35d0e7: Waiting
+583599bb7d38: Waiting
+4a8b0b2a5b19: Waiting
+453da7dbc73e: Waiting
+453da7dbc73e: Waiting
+d2cf5831500c: Waiting
+aee4e54b3865: Waiting
+781ff50d2644: Waiting
+612c0c1df4c5: Waiting
+6a0ac1617861: Waiting
+82736a35d0e7: Waiting
+583599bb7d38: Waiting
+4a8b0b2a5b19: Waiting
+d2cf5831500c: Waiting
+aee4e54b3865: Waiting
+781ff50d2644: Waiting
+612c0c1df4c5: Waiting
+6a0ac1617861: Waiting
+82736a35d0e7: Waiting
+583599bb7d38: Waiting
+4a8b0b2a5b19: Waiting
+453da7dbc73e: Waiting
+781ff50d2644: Waiting
+612c0c1df4c5: Waiting
+6a0ac1617861: Waiting
+82736a35d0e7: Waiting
+583599bb7d38: Waiting
+4a8b0b2a5b19: Waiting
+453da7dbc73e: Waiting
+d2cf5831500c: Waiting
+aee4e54b3865: Waiting
+612c0c1df4c5: Waiting
+6a0ac1617861: Waiting
+82736a35d0e7: Waiting
+583599bb7d38: Waiting
+4a8b0b2a5b19: Waiting
+453da7dbc73e: Waiting
+d2cf5831500c: Waiting
+aee4e54b3865: Waiting
+781ff50d2644: Waiting
+d2cf5831500c: Waiting
+aee4e54b3865: Waiting
+781ff50d2644: Waiting
+612c0c1df4c5: Waiting
+6a0ac1617861: Waiting
+82736a35d0e7: Waiting
+583599bb7d38: Waiting
+4a8b0b2a5b19: Waiting
+453da7dbc73e: Waiting
+6a0ac1617861: Waiting
+82736a35d0e7: Waiting
+583599bb7d38: Waiting
+4a8b0b2a5b19: Waiting
+453da7dbc73e: Waiting
+d2cf5831500c: Waiting
+aee4e54b3865: Waiting
+781ff50d2644: Waiting
+612c0c1df4c5: Waiting
+6a0ac1617861: Waiting
+82736a35d0e7: Waiting
+583599bb7d38: Waiting
+4a8b0b2a5b19: Waiting
+453da7dbc73e: Waiting
+d2cf5831500c: Waiting
+aee4e54b3865: Waiting
+781ff50d2644: Waiting
+612c0c1df4c5: Waiting
+453da7dbc73e: Waiting
+d2cf5831500c: Waiting
+aee4e54b3865: Waiting
+781ff50d2644: Waiting
+612c0c1df4c5: Waiting
+6a0ac1617861: Waiting
+82736a35d0e7: Waiting
+583599bb7d38: Waiting
+4a8b0b2a5b19: Waiting
+d2cf5831500c: Waiting
+aee4e54b3865: Waiting
+781ff50d2644: Waiting
+612c0c1df4c5: Waiting
+6a0ac1617861: Waiting
+82736a35d0e7: Waiting
+583599bb7d38: Waiting
+4a8b0b2a5b19: Waiting
+453da7dbc73e: Waiting
+d2cf5831500c: Waiting
+aee4e54b3865: Waiting
+781ff50d2644: Waiting
+612c0c1df4c5: Waiting
+6a0ac1617861: Waiting
+82736a35d0e7: Waiting
+583599bb7d38: Waiting
+4a8b0b2a5b19: Waiting
+453da7dbc73e: Waiting
+781ff50d2644: Waiting
+612c0c1df4c5: Waiting
+6a0ac1617861: Waiting
+82736a35d0e7: Waiting
+583599bb7d38: Waiting
+4a8b0b2a5b19: Waiting
+453da7dbc73e: Waiting
+d2cf5831500c: Waiting
+aee4e54b3865: Waiting
+781ff50d2644: Waiting
+612c0c1df4c5: Waiting
+6a0ac1617861: Waiting
+82736a35d0e7: Waiting
+583599bb7d38: Waiting
+4a8b0b2a5b19: Waiting
+453da7dbc73e: Waiting
+d2cf5831500c: Waiting
+aee4e54b3865: Waiting
+82736a35d0e7: Waiting
+583599bb7d38: Waiting
+4a8b0b2a5b19: Waiting
+453da7dbc73e: Waiting
+d2cf5831500c: Waiting
+aee4e54b3865: Waiting
+781ff50d2644: Waiting
+612c0c1df4c5: Waiting
+6a0ac1617861: Waiting
+d2cf5831500c: Waiting
+aee4e54b3865: Waiting
+781ff50d2644: Waiting
+612c0c1df4c5: Waiting
+6a0ac1617861: Waiting
+82736a35d0e7: Waiting
+583599bb7d38: Waiting
+4a8b0b2a5b19: Waiting
+453da7dbc73e: Waiting
+6a0ac1617861: Waiting
+82736a35d0e7: Waiting
+583599bb7d38: Waiting
+4a8b0b2a5b19: Waiting
+453da7dbc73e: Waiting
+d2cf5831500c: Waiting
+aee4e54b3865: Waiting
+781ff50d2644: Waiting
+612c0c1df4c5: Waiting
+d2cf5831500c: Waiting
+aee4e54b3865: Waiting
+781ff50d2644: Waiting
+612c0c1df4c5: Waiting
+6a0ac1617861: Waiting
+82736a35d0e7: Waiting
+583599bb7d38: Waiting
+4a8b0b2a5b19: Waiting
+453da7dbc73e: Waiting
+push access denied, repository does not exist or may require authorization: server message: insufficient_scope: authorization failed
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Deploy (Later))
+Stage "Deploy (Later)" skipped due to earlier failure(s)
+[Pipeline] getContext
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+ERROR: script returned exit code 1
+Finished: FAILURE
