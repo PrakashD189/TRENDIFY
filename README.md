@@ -40,8 +40,8 @@ eksctl create cluster --name trendify-cluster --region ap-south-1
 Verify
 kubectl get nodes
 🔹 6. Deployment
-kubectl apply -f k8s/deployment.yaml
-kubectl apply -f k8s/service.yaml
+kubectl apply -f deployment.yaml
+kubectl apply -f service.yaml
 🔹 7. Access Application
 kubectl get svc
 
@@ -75,9 +75,7 @@ Avoid hardcoding AWS credentials
 Use IAM Roles for production
 Store secrets in Jenkins Credentials
 
-URL:http://ae49e8735c2b24a8cae1fbe12740502a-534043028.ap-south-1.elb.amazonaws.com/
+URL:URL: http://a18ed7c93fb1f491389dca1d8ddbff76-1270574876.ap-south-1.elb.amazonaws.com/
 
-
-Tag Image
 Push to DockerHub
 Deploy to Kubernetes
